@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cloudops-support-toolkit"
+version = "1.0.0"
+description = "HTTP/DNS/TLS checks, access log triage and Markdown incident reporting"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Kamran Mustafa Abbasi"}]
+keywords = ["cloud-support", "linux", "incident-management", "python", "devops"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Environment :: Console",
+    "Topic :: System :: Monitoring",
+]
+
+[project.scripts]
+cloudops = "cloudops_toolkit.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["cloudops_toolkit*"]
