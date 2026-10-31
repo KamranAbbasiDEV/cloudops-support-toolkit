@@ -1,0 +1,25 @@
+name: Python CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install project
+        run: python -m pip install -e .
+      - name: Run unit tests (offline)
+        run: python -m unittest discover -s tests -v
+      - name: Verify sample log analysis (offline)
+        run: python -m cloudops_toolkit analyze-logs samples/access.log
+      - name: Generate sample report (offline)
+        run: python -m cloudops_toolkit incident-report --health samples/demo-health.json --logs samples/access.log --output /tmp/incident.md
